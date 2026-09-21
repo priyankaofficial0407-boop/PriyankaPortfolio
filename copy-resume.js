@@ -8,10 +8,12 @@ const __dirname = path.dirname(__filename);
 const destDir = path.resolve(__dirname, 'public');
 const destFile = path.resolve(destDir, 'Priyanka_Resume.pdf');
 
-// Check possible source locations (with underscore or space, in root or public)
+// Check possible source locations (with underscore, space, double-e, in root or public)
 const possibleSources = [
+  path.resolve(__dirname, 'PriyankaResumee.pdf'),
   path.resolve(__dirname, 'Priyanka_Resume.pdf'),
   path.resolve(__dirname, 'Priyanka Resume.pdf'),
+  path.resolve(destDir, 'PriyankaResumee.pdf'),
   path.resolve(destDir, 'Priyanka Resume.pdf'),
   path.resolve(destDir, 'Priyanka_Resume.pdf')
 ];

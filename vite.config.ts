@@ -8,8 +8,10 @@ try {
   const destDir = path.resolve(__dirname, 'public');
   const destFile = path.resolve(destDir, 'Priyanka_Resume.pdf');
   const possibleSources = [
+    path.resolve(__dirname, 'PriyankaResumee.pdf'),
     path.resolve(__dirname, 'Priyanka_Resume.pdf'),
     path.resolve(__dirname, 'Priyanka Resume.pdf'),
+    path.resolve(destDir, 'PriyankaResumee.pdf'),
     path.resolve(destDir, 'Priyanka Resume.pdf')
   ];
 
