@@ -5,17 +5,29 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const srcFile = path.resolve(__dirname, 'Priyanka Resume.pdf');
-const destFile = path.resolve(__dirname, 'public/Priyanka_Resume.pdf');
-const destFileSpace = path.resolve(__dirname, 'public/Priyanka Resume.pdf');
+const destDir = path.resolve(__dirname, 'public');
+const destFile = path.resolve(destDir, 'Priyanka_Resume.pdf');
 
-if (fs.existsSync(srcFile)) {
-  if (!fs.existsSync(path.resolve(__dirname, 'public'))) {
-    fs.mkdirSync(path.resolve(__dirname, 'public'), { recursive: true });
+// Check possible source locations (with underscore or space, in root or public)
+const possibleSources = [
+  path.resolve(__dirname, 'Priyanka_Resume.pdf'),
+  path.resolve(__dirname, 'Priyanka Resume.pdf'),
+  path.resolve(destDir, 'Priyanka Resume.pdf'),
+  path.resolve(destDir, 'Priyanka_Resume.pdf')
+];
+
+let foundSource = possibleSources.find(file => fs.existsSync(file));
+
+if (foundSource) {
+  if (!fs.existsSync(destDir)) {
+    fs.mkdirSync(destDir, { recursive: true });
   }
-  fs.copyFileSync(srcFile, destFile);
-  fs.copyFileSync(srcFile, destFileSpace);
-  console.log('Successfully copied Priyanka Resume.pdf to public/Priyanka_Resume.pdf!');
+  if (foundSource !== destFile) {
+    fs.copyFileSync(foundSource, destFile);
+    console.log(`Successfully synced ${path.basename(foundSource)} to public/Priyanka_Resume.pdf!`);
+  } else {
+    console.log('Resume file public/Priyanka_Resume.pdf is ready.');
+  }
 } else {
-  console.log('Priyanka Resume.pdf source file not found.');
+  console.log('Note: Resume source file (Priyanka_Resume.pdf) will be served directly from public/ if present.');
 }

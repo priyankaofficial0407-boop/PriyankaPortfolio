@@ -5,20 +5,24 @@ import path from 'path';
 
 // Immediate file copy from project root to public folder
 try {
-  const srcFile = path.resolve(__dirname, 'Priyanka Resume.pdf');
   const destDir = path.resolve(__dirname, 'public');
   const destFile = path.resolve(destDir, 'Priyanka_Resume.pdf');
-  const destFileSpace = path.resolve(destDir, 'Priyanka Resume.pdf');
+  const possibleSources = [
+    path.resolve(__dirname, 'Priyanka_Resume.pdf'),
+    path.resolve(__dirname, 'Priyanka Resume.pdf'),
+    path.resolve(destDir, 'Priyanka Resume.pdf')
+  ];
 
-  if (fs.existsSync(srcFile)) {
+  const srcFile = possibleSources.find(file => fs.existsSync(file));
+
+  if (srcFile && srcFile !== destFile) {
     if (!fs.existsSync(destDir)) {
       fs.mkdirSync(destDir, { recursive: true });
     }
     fs.copyFileSync(srcFile, destFile);
-    fs.copyFileSync(srcFile, destFileSpace);
   }
 } catch (err) {
-  console.error('Error copying resume file:', err);
+  // Silent catch
 }
 
 // https://vitejs.dev/config/
