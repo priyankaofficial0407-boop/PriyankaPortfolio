@@ -7,7 +7,7 @@
     "predev": "node copy-resume.js",
     "prebuild": "node copy-resume.js",
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "lint": "tsc --noEmit",
     "preview": "vite preview"
   },
